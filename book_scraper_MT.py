@@ -24,10 +24,10 @@ def get_book(page_number):
     instances = []
     print("Working on Page", page_number)
     soup = setup("http://books.toscrape.com/catalogue/page-{}.html".format(page_number))
-    headings = soup.find_all("h3")
+    headings = soup.find_all("h3")  # Find all books by H3
     for h in headings:
-        book = h.find_all("a")
-        for a in book:
+        book = h.find_all("a")  # Get link tags of each book and store it
+        for a in book:  # get the attribute of "a" tag
             url = a.get("href")
             url = ("http://books.toscrape.com/catalogue/"+url)
             soup_book = setup(url)
