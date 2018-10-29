@@ -5,15 +5,14 @@ from bs4 import BeautifulSoup
 
 
 class Book:
-    def __init__(self, url, name, price, genre, upc):
+    def __init__(self, url, name, price, upc):
         self.url = url
         self.name = name
         self.price = price
-        self.genre = genre
         self.upc = upc
 
     def get_info(self):
-        return self.name, self.price, self.genre, self.upc, self.url
+        return self.name, self.price, self.upc, self.url
 
 
 def setup(url):
@@ -31,7 +30,7 @@ def run(page_number):
         for a in page:
             url = a.get("href")
             url = ("http://books.toscrape.com/catalogue/"+url)
-            books.append(Book(url, None, None, None, None))
+            books.append(Book(url, None, None, None))
 
     for book in books:
         attributes = []
@@ -43,13 +42,12 @@ def run(page_number):
             for i in att.contents:
                 attributes.append(i)
         book.name = name
-        book.genre
         book.price = attributes[2]
         book.upc = attributes[0]
         # print(book.__dict__)
 
 
-for i in range(1, 50):
+for i in range(1, 2):
     print("Scraping page {} out of {}".format(i, 50))
     run(i)
 
